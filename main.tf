@@ -20,5 +20,3 @@ resource "azuread_group" "ca_exclude" {
   owners           = [data.azuread_client_config.current.object_id]
   security_enabled = true
 }
-
-#$groupid = data.azuread_group.ca_exclude.object_id
