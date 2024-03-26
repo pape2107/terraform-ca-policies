@@ -22,8 +22,8 @@ resource "azuread_conditional_access_policy" "all_admins_mfa" {
     }
 
     users {
-      included_users  = ["All"]
-      excluded_groups = ["4a28132d-4707-4136-b5fe-3c8b9b8bad65"]
+      included_users  = ["all"]
+      excluded_groups = [azuread_group.ca_exclude.object_id]
     }
   }
   grant_controls {
