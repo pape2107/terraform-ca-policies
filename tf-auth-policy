@@ -1,0 +1,17 @@
+resource "azuread_authentication_strength_policy" "privileged-auth-policy" {
+    display_name = "Privileged-Authentication-Policy"
+    description = "Autentication methods for user with privileged role access"
+    allowed_combinations = [ 
+        "fido2",
+        "password",
+     ]
+}
+
+resource "azuread_authentication_strength_policy" "user-auth-policy" {
+    display_name = "User-Authentication-Policy"
+    description = "Autentication methods for normal users"
+    allowed_combinations = [ 
+        "fido2",
+        "password",
+     ]
+}
