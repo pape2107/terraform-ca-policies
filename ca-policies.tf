@@ -17,7 +17,7 @@ resource "azuread_conditional_access_policy" "all_admins_mfa" {
     #}
 
     locations {
-      included_locations = ["all"]
+      included_locations = [azuread_named_location.home.id]
       excluded_locations = ["AllTrusted"]
     }
 
@@ -29,7 +29,7 @@ resource "azuread_conditional_access_policy" "all_admins_mfa" {
   grant_controls {
     operator          = "OR"
     built_in_controls = ["mfa"]
-    authentication_strength_policy_id = [azuread_authentication_strength_policy.privileged-auth-policy.id]
+    authentication_strength_policy_id = [priv_auth_policy_id.id]
   }
 
   session_controls {
@@ -39,7 +39,7 @@ resource "azuread_conditional_access_policy" "all_admins_mfa" {
     sign_in_frequency_period                  = "hours"
     cloud_app_security_policy                 = "monitorOnly"
   }
-  depends_on = [azuread_authentication_strength_policy.privileged-auth-policy]
+  #depends_on = [azuread_authentication_strength_policy.privileged_auth_policy]
 }
 
 resource "azuread_conditional_access_policy" "all_users_mfa" {
@@ -73,7 +73,7 @@ resource "azuread_conditional_access_policy" "all_users_mfa" {
   grant_controls {
     operator          = "OR"
     built_in_controls = ["mfa"]
-    authentication_strength_policy_id = [azuread_authentication_strength_policy.user-auth-policy.id]
+    #authentication_strength_policy_id = [azuread_authentication_strength_policy.user_auth_policy.id]
   }
 
   session_controls {
@@ -83,5 +83,5 @@ resource "azuread_conditional_access_policy" "all_users_mfa" {
     sign_in_frequency_period                  = "hours"
     cloud_app_security_policy                 = "monitorOnly"
   }
-  depends_on = [ azuread_authentication_strength_policy.user-auth-policy ]
+  #depends_on = [ azuread_authentication_strength_policy.user_auth_policy ]
 }
