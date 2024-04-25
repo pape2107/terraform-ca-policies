@@ -7,10 +7,6 @@ resource "azuread_authentication_strength_policy" "privileged_auth_policy" {
      ]
 }
 
-output "priv_auth_policy_id" {
-  value = [azuread_authentication_strength_policy.privileged_auth_policy.id]
-}
-
 resource "azuread_authentication_strength_policy" "user_auth_policy" {
     display_name = "User-Authentication-Policy"
     description = "Autentication methods for normal users"
@@ -22,4 +18,7 @@ resource "azuread_authentication_strength_policy" "user_auth_policy" {
 
 resource "azuread_named_location" "home" {
   display_name = "home"
+  country {
+    countries_and_regions = [ "DE" ]
+  }
 }
